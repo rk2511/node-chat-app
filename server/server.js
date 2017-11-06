@@ -17,6 +17,17 @@ console.log(publicPath);
 io.on('connection', (socket) => {
   console.log('New user connected');
 
+  socket.on('createMessage', (message) => {
+    message.createdAt = new Date();
+    console.log('message data', message);
+  });
+
+  socket.emit('newMessage', {
+    from: 'vikki',
+    text: 'andrew is awesome'
+  });
+
+
   socket.on('disconnect', ()=> {
     console.log('user disconnected');
   });
