@@ -18,13 +18,13 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
   socket.on('createMessage', (message) => {
-    message.createdAt = new Date();
+    //message.createdAt = new Date();
     console.log('message data', message);
-  });
-
-  socket.emit('newMessage', {
-    from: 'vikki',
-    text: 'andrew is awesome'
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 
 
