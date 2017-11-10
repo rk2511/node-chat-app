@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const {generateMessage} = require('./utils/message.js');
+const {generateMessage, generateLocationMessage} = require('./utils/message.js');
 //const http = require('http');
 //const socketIO = require('socket.io');
 //var app = express();
@@ -22,10 +22,11 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined'));
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     //message.createdAt = new Date();
     console.log('message data', message);
     io.emit('newMessage', generateMessage(message.from,message.text));
+    callback();
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text,
@@ -33,6 +34,10 @@ io.on('connection', (socket) => {
     // });
   });
 
+  socket.on('createLocateMessage', (coords) => {
+    //console.log(coords);
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+  });
 
   socket.on('disconnect', ()=> {
     console.log('user disconnected');

@@ -2,12 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/index.js"></script>
 </head>
 <body>
   <p>This is node chat app checking..</p>
-  <script>
-  </script>
+  <ol id="messages"></ol>
+  <form id="message-form">
+    <input name="message" type="text" placeholder="enter message"/>
+    <button>Send</button>
+  </form>
+  <button id="send-location">Send Location</button>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/libs/jquery-3.2.1.min.js"></script>
+  <script src="/js/index.js"></script>
 </body>
 </html>
